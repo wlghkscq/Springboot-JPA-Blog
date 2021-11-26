@@ -1,6 +1,44 @@
+server:
+  port: 8000
+  servlet:
+    context-path: /
+    encoding:
+      charset: UTF-8
+      enabled: true
+      force: true
+
 spring:
+  mvc:
+    view:
+      prefix: /WEB-INF/views/
+      suffix: .jsp
+
   datasource:
     driver-class-name: com.mysql.cj.jdbc.Driver
     url: jdbc:mysql://localhost:3306/blog?serverTimezone=Asia/Seoul
     username: cos
     password: cos1234
+
+  jpa:
+    open-in-view: true
+    hibernate:
+      ddl-auto: update # create 서버를 실행할때마다 기존 테이블을 drop하고 테이블을 새로 생성
+      naming:
+        physical-strategy: org.hibernate.boot.model.naming.PhysicalNamingStrategyStandardImpl # StandardImpl -> 엔티티로 테이블을 만들떄 변수명 그대로 데이터 필드에 만들어준다.
+      use-new-id-generator-mappings: false # JPA가 사용하는 기본넘버링 전략을 사용 X -> mysql 이면 auto increment oracle이면 시퀀스 등 각 db에 맡게 설정할수 있음
+    #show-sql: true # sql 쿼리문 콘솔창에 출력
+    properties:
+      hibernate.format_sql: true # sql 쿼리문 콘솔창 출력시 일렬도 나열x 개행해서 보기 쉽게 정렬후 출력
+
+  jackson:
+    serialization:
+      fail-on-empty-beans: false
+
+  http:
+    encoding:
+      charset: UTF-8
+      enabled: true
+      force: true
+
+  cos:
+    key: cos1234
